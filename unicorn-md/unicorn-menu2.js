@@ -19,7 +19,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
     let uptime = clockString(_uptime)
     let who = m.quoted ? m.quoted.sender : m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
     if (!(who in global.db.data.users)) throw `🦄 User not found in Unicorn database`
-    let pp = './media/shizo.jpg'
+    let pp = './media/unicorn.jpg'
     let user = global.db.data.users[who]
     let { name, exp, diamond, lastclaim, registered, regTime, age, level, role, warn } = user
     let { min, xp, max } = xpRange(user.level, global.multiplier)
