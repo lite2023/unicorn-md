@@ -1,4 +1,4 @@
-// 🦄 Unicorn MD Plugin: AI Chat Assistant
+// 🦄 Unicorn MD Plugin: AI Chat Assistantj
 import fetch from 'node-fetch';
 
 let handler = async (m, { text, conn }) => {
