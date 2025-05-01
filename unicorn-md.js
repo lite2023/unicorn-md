@@ -98,7 +98,7 @@ async function start(file) {
     start('unicorn-silva.js')
   })
 
-  const pluginsFolder = path.join(path.dirname(currentFilePath), 'unicorncmds')
+  const pluginsFolder = path.join(path.dirname(currentFilePath), 'unicorn-md')
 
   fs.readdir(pluginsFolder, async (err, files) => {
     if (err) {
