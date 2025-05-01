@@ -1,4 +1,4 @@
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Black+Ops+One&size=28&pause=750&color=D900E6&center=true&width=435&lines=Hey+Unicorns!;Welcome+%F0%9F%A6%84+to+Unicorn+MD;The+magic+starts+here+%F0%9F%8C%88;Updated+on+April+2025;We+build+legendary+bots+for+fun+%F0%9F%94%A5;Unicorns+run+this+bot+%F0%9F%A7%AA;Star+and+fork+to+support+us+%E2%AD%90)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Black+Ops+One&size=28&pause=750&color=D900E6&center=true&width=910&lines=Hey+Unicorns!;Welcome+%F0%9F%A6%84+to+Unicorn+MD;The+magic+starts+here+%F0%9F%8C%88;Updated+on+1+May+2025;We+build+legendary+bots+for+fun+%F0%9F%94%A5;Unicorns+run+this+bot+%F0%9F%A7%AA;Star+and+fork+to+support+us+%E2%AD%90)](https://git.io/typing-svg)
 
 <img src="https://i.imgur.com/dBaSKWF.gif" height="90" width="100%">
 
