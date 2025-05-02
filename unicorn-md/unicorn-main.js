@@ -12,7 +12,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 
   let mode = global.opts['self'] ? '🌙 Private' : '🌞 Public'
   let ping = performance.now()
-  let pp = './media/unicorn.jpg' // 🖼 Replace with your custom Unicorn image
+  let pp = './media/unicornmenu.jpg' // 🖼 Replace with your custom Unicorn image
 
   let more = String.fromCharCode(8206)
   let readMore = more.repeat(900)
