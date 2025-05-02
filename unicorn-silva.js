@@ -382,14 +382,33 @@ async function connectionUpdate(update) {
     conn.logger.info(chalk.yellow('\nUnicorn is Logging in....'))
   }
 
-  if (connection === 'open') {
-    const { jid, name } = conn.user
-    const msg = `🦄 *Unicorn MD is Live!*\n\nHey ${name}, your bot is up and running ✅\n\n> THIS IS A SILVA TECH INC BOT\n\n📅 Launched: Sep 2024\n🔧 Org: Silva Tech Inc.\n\n📢 Updates:\nhttps://whatsapp.com/channel/0029VaAkETLLY6d8qhLmZt2v\n\n— Sylivanus Momanyi`
+ if (connection === 'open') {
+    const { jid, name } = conn.user;
+    const launchDate = '1 MAY 2025';
+    const organization = 'Silva Tech Inc.';
+    const updateChannel = 'https://whatsapp.com/channel/0029VaAkETLLY6d8qhLmZt2v';
+    const pp = 'https://i.imgur.com/t93Pw4z.jpeg'; // Replace with your actual image URL
 
-    await conn.sendMessage(jid, { text: msg, mentions: [jid] }, { quoted: null })
+    const unicorn = `✨ *🦄 Unicorn MD is Live!*\n\n👋 Hello, *${name}*!\nYour bot is now *up and running* ✅\n\n📢 *OFFICIAL BOT BY SILVA TECH INC.*\n\n🗓️ *Launched:* ${launchDate}\n🏢 *Organization:* ${organization}\n\n🔔 *Stay Updated:*\n${updateChannel}\n\n— 🛠️ *Sylivanus Momanyi*`;
 
-    conn.logger.info(chalk.yellow('\n UNICORN 🦄 𝖶𝖮𝖱𝖪'))
-  }
+    await conn.sendMessage(jid, {
+        image: { url: pp },
+        caption: unicorn,
+        contextInfo: {
+            mentionedJid: [jid],
+            forwardingScore: 999,
+            isForwarded: true,
+            forwardedNewsletterMessageInfo: {
+                newsletterJid: '120363200367779016@newsletter',
+                newsletterName: '🦄 Unicorn: Sylivanus Momanyi🧚',
+                serverMessageId: 2025
+            }
+        }
+    });
+
+    conn.logger.info(chalk.greenBright('\n🦄 UNICORN MD — SYSTEM ONLINE ✅\n'));
+}
+
 
   if (connection === 'close') {
     conn.logger.error(chalk.yellow(`\nUnicorn Connection closed... Get a new unicorn session`))
