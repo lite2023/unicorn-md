@@ -38,10 +38,10 @@ Show your support and spread the magic by forking the repo and starring it! ⭐
 | Platform | Link |
 |---------|------|
 | 🪄 Get Session | [Get Session](https://silva-session-selector.vercel.app/) |
-| ☁️ Heroku | [Deploy on Heroku](https://silva-md-fork-checker.vercel.app/) |
-| 🛤️ Railway | [Deploy on Railway](https://silva-md-fork-checker.vercel.app/) |
-| 🌀 Koyeb | [Deploy on Koyeb](https://silva-md-fork-checker.vercel.app/) |
-| 🧩 Talkdrove | [Deploy on Talkdrove](https://host.talkdrove.com/share-bot/49) |
+| ☁️ Heroku | [Deploy on Heroku](https://unicorn-fork-check.vercel.app/) |
+| 🛤️ Railway | [Deploy on Railway](https://unicorn-fork-check.vercel.app/) |
+| 🌀 Koyeb | [Deploy on Koyeb](https://unicorn-fork-check.vercel.app/) |
+| 🧩 Talkdrove | [Deploy on Talkdrove](https://unicorn-fork-check.vercel.app/) |
 
 <img src="https://i.imgur.com/dBaSKWF.gif" height="90" width="100%">
 
