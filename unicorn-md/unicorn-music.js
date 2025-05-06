@@ -50,21 +50,19 @@ let handler = async (m, { conn, text, botname }) => {
       return m.reply("⚠️🌩️ All music portals are currently closed. Please try again shortly!")
     }
 
-    // Caption with info
     const caption = `🦄🎵 *Enchanted Unicorn Melody Summoned!*
 
 🎧 *Title:* ${songInfo.title}
 🎤 *Artist:* ${songInfo.artist}
 📺 *YouTube:* ${songInfo.videoUrl}
 
-✨ Click buttons below to listen or download the melody spell.
+✨ Tap the magic buttons below to enjoy your melody.
 — *Powered by Unicorn MD*`
 
-    // Send preview card with interactive buttons
     await conn.sendMessage(m.chat, {
       image: { url: songInfo.thumbnail },
       caption,
-      footer: "🎶 Choose an option below",
+      footer: "🎶 Choose your path:",
       buttons: [
         { buttonId: `.stream ${audioUrl}`, buttonText: { displayText: "▶️ Stream Now" }, type: 1 },
         { buttonId: `.download ${audioUrl}`, buttonText: { displayText: "⬇️ Audio File" }, type: 1 },
