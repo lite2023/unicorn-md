@@ -2,86 +2,86 @@ import axios from "axios"
 import ytSearch from "yt-search"
 
 let handler = async (m, { conn, text, botname }) => {
-  if (!text) return m.reply("🦄✨ What magical song are you summoning today?")
+  if (!text) {
+    return m.reply("🦄✨ What magical melody would you like to summon, adventurer?")
+  }
 
-  await m.reply("🔮 *Unicorn MD is searching the enchanted streams... please hold!* 🎶")
+  await m.reply("🔍✨ Searching the realms of YouTube for your enchanted request...")
 
   try {
-    let search = await ytSearch(text)
-    let video = search.videos[0]
+    const search = await ytSearch(text)
+    const video = search.videos[0]
 
-    if (!video) return m.reply("😔🦄 No stardust found in that request. Try a different spell!")
+    if (!video) {
+      return m.reply("😔💨 No spell matched your tune. Try another incantation.")
+    }
 
-    let link = video.url
-    let apis = [
+    const link = video.url
+    const apiList = [
       `https://apis.davidcyriltech.my.id/youtube/mp3?url=${link}`,
       `https://api.ryzendesu.vip/api/downloader/ytmp3?url=${link}`
     ]
 
-    for (const api of apis) {
-      try {
-        let { data } = await axios.get(api)
+    let songInfo = null
+    let audioUrl = null
 
+    for (const api of apiList) {
+      try {
+        const { data } = await axios.get(api)
         if (data.status === 200 || data.success) {
-          let audioUrl = data.result?.downloadUrl || data.url
-          let songData = {
+          audioUrl = data.result?.downloadUrl || data.url
+          songInfo = {
             title: data.result?.title || video.title,
             artist: data.result?.author || video.author.name,
             thumbnail: data.result?.image || video.thumbnail,
             videoUrl: link
           }
-
-          await conn.sendMessage(
-            m.chat,
-            {
-              image: { url: songData.thumbnail },
-              caption: `🦄✨ *Unicorn Melody Summoned!*
-╭━━━━━━⊱🪄⊰━━━━━━╮
-🎧 *Track:* ${songData.title}
-🎤 *Artist:* ${songData.artist}
-📡 *Stream Source:* [Hidden by Fairy Dust]
-╰━━━━━━⊱🦄⊰━━━━━━╯
-🌟 *Powered by Unicorn MD*`,
-            },
-            { quoted: m }
-          )
-
-          await m.reply("📤✨ Sending enchanted audio...")
-
-          await conn.sendMessage(
-            m.chat,
-            {
-              audio: { url: audioUrl },
-              mimetype: "audio/mp4",
-            },
-            { quoted: m }
-          )
-
-          await m.reply("📄✨ Attaching as magical document...")
-
-          await conn.sendMessage(
-            m.chat,
-            {
-              document: { url: audioUrl },
-              mimetype: "audio/mp3",
-              fileName: `${songData.title.replace(/[^a-zA-Z0-9 ]/g, "")}.mp3`,
-            },
-            { quoted: m }
-          )
-
-          await m.reply("✅🦄 *Unicorn MD just cast the perfect sound spell for you!*")
-
-          return
+          break
         }
-      } catch (e) {
-        console.error(`🦄API Error (${api}):`, e.message)
+      } catch (err) {
+        console.log(`🌀 API failed (${api}): ${err.message}`)
         continue
       }
     }
 
-    return m.reply("⚠️🌪️ All unicorn channels are currently stormy... try again later.")
+    if (!audioUrl || !songInfo) {
+      return m.reply("⚠️🌩️ All music portals are currently closed. Please try again shortly!")
+    }
+
+    const caption = `🦄🎵 *Enchanted Unicorn Melody Summoned!*
+
+🎧 *Title:* ${songInfo.title}
+🎤 *Artist:* ${songInfo.artist}
+📺 *YouTube Link:* ${songInfo.videoUrl}
+
+💫 Tap to preview the magical track above. Enjoy your journey!
+— *Powered by Unicorn MD*`
+
+    await conn.sendMessage(m.chat, {
+      image: { url: songInfo.thumbnail },
+      caption
+    }, { quoted: m })
+
+    await m.reply("📤✨ Sending audio spell...")
+
+    await conn.sendMessage(m.chat, {
+      audio: { url: audioUrl },
+      mimetype: "audio/mp4"
+    }, { quoted: m })
+
+    await m.reply("📄✨ Attaching it as a magical scroll (document)...")
+
+    await conn.sendMessage(m.chat, {
+      document: { url: audioUrl },
+      mimetype: "audio/mp3",
+      fileName: `${songInfo.title.replace(/[^a-zA-Z0-9 ]/g, "")}.mp3`
+    }, { quoted: m })
+
+    return m.reply("✅🦄 *The spell is complete! Your audio has arrived from the realm of music.*")
+
   } catch (error) {
-    return m.reply("❌🌧️ Failed to conjure the melody\n" + error.message)
+    console.error("❌ Magic disruption:", error.message)
+    return m.reply("❌⚡ Something disturbed the musical ether:\n" + error.message)
   }
 }
 
