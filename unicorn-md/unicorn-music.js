@@ -1,3 +1,5 @@
+//THIS IS A PROPERTY OF SILVA TECH INC. DONT MAKE ME ENCRYPT THIS DATA. COPY WITH CREDIT. THIS IS AN OPEN SOURCE CODE
+
 import axios from "axios"
 import ytSearch from "yt-search"
 
@@ -77,8 +79,8 @@ let handler = async (m, { conn, text, botname }) => {
   }
 }
 
-handler.help = ["play"]
+handler.help = ["music"]
 handler.tags = ["downloader"]
-handler.command = /^play$/i
+handler.command = /^music$/i
 
 export default handler
