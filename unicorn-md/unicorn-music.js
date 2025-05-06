@@ -1,4 +1,5 @@
 //THIS IS A PROPERTY OF SILVA TECH INC. DONT MAKE ME ENCRYPT THIS DATA. COPY WITH CREDIT. THIS IS AN OPEN SOURCE CODE
+
 import axios from "axios"
 import ytSearch from "yt-search"
 
@@ -10,21 +11,18 @@ let handler = async (m, { conn, text, botname }) => {
   await m.reply("🔍✨ Searching the realms of YouTube for your enchanted request...")
 
   try {
-    console.log("🔍 Searching YouTube for:", text)
     const search = await ytSearch(text)
     const video = search.videos[0]
 
     if (!video) {
-      console.log("❌ No video found for:", text)
       return m.reply("😔💨 No spell matched your tune. Try another incantation.")
     }
 
-    console.log("🎥 Video found:", video.title)
     const link = video.url
-
     const apiList = [
-      `https://apis.davidcyriltech.my.id/youtube/mp3?url=${link}`,
-      `https://api.ryzendesu.vip/api/downloader/ytmp3?url=${link}`
+      `https://aemt.me/download/ytmp3?url=${link}`, // ✅ active
+      `https://apis.davidcyriltech.my.id/youtube/mp3?url=${link}`, // fallback
+      `https://api.ryzendesu.vip/api/downloader/ytmp3?url=${link}` // fallback
     ]
 
     let songInfo = null
@@ -32,11 +30,14 @@ let handler = async (m, { conn, text, botname }) => {
 
     for (const api of apiList) {
       try {
-        console.log("🌐 Attempting API:", api)
-        const { data } = await axios.get(api)
-        console.log("📦 API response:", data)
+        const res = await axios.get(api)
+        if (res.status === 410) {
+          console.log(`⚠️ 410 Gone from: ${api}`)
+          continue
+        }
 
-        if (data.status === 200 || data.success) {
+        const data = res.data
+        if (data.status === 200 || data.success || data.result) {
           audioUrl = data.result?.downloadUrl || data.url
           songInfo = {
             title: data.result?.title || video.title,
@@ -45,35 +46,30 @@ let handler = async (m, { conn, text, botname }) => {
             videoUrl: link
           }
           break
-        } else {
-          console.log("❌ API returned non-success status")
         }
       } catch (err) {
-        console.log(`⚠️ API failed (${api}):`, err.message)
+        console.log(`❌ API failed (${api}): ${err.message}`)
         continue
       }
     }
 
     if (!audioUrl || !songInfo) {
-      console.log("🚫 All APIs failed or returned invalid data")
       return m.reply("⚠️🌩️ All music portals are currently closed. Please try again shortly!")
     }
 
-    const caption = `🦄🎵 *Enchanted Unicorn Melody Summoned!*
+    const caption = `🦄🎵 *Unicorn Melody Found!*
 
 🎧 *Title:* ${songInfo.title}
 🎤 *Artist:* ${songInfo.artist}
 📺 *YouTube:* ${songInfo.videoUrl}
 
-✨ Tap the magic buttons below to enjoy your melody.
-— *Powered by Unicorn MD*`
-
-    console.log("📤 Sending buttons with thumbnail...")
+✨ Use the magic buttons below to enjoy the tune.
+— *Unicorn MD Music Realm*`
 
     await conn.sendMessage(m.chat, {
       image: { url: songInfo.thumbnail },
       caption,
-      footer: "🎶 Choose your path:",
+      footer: "🎶 Tap a spell below:",
       buttons: [
         { buttonId: `.stream ${audioUrl}`, buttonText: { displayText: "▶️ Stream Now" }, type: 1 },
         { buttonId: `.download ${audioUrl}`, buttonText: { displayText: "⬇️ Audio File" }, type: 1 },
@@ -82,11 +78,9 @@ let handler = async (m, { conn, text, botname }) => {
       headerType: 4
     }, { quoted: m })
 
-    console.log("✅ All done!")
-
   } catch (error) {
-    console.error("❌ Global error caught:", error)
-    return m.reply("❌ Something went wrong:\n" + error.message)
+    console.error("❌ Error in music handler:", error)
+    return m.reply("❌ Something interrupted the melody:\n" + error.message)
   }
 }
 
