@@ -1,5 +1,6 @@
 // ☠️ DON'T COPY PASTE SILVA TECH INC CODE. OUR CODES ARE FOR TESTING 
 // 🌟 Unicorn MD Anti-Spam Plugin (Clean + Fixed)
+
 const messageTracker = {};
 const warnedUsers = {}; // Track users who were already warned
 
@@ -12,18 +13,13 @@ export async function before(m, { conn }) {
   const now = Date.now();
   const timeLimit = 45 * 1000; // 45 seconds
   const maxMessages = 5;
-  const cooldown = 5 * 60 * 1000; // 2 minutes cooldown per user
+  const cooldown = 5 * 60 * 1000; // 5 minutes cooldown per user
 
-  // Initialize message tracker
   if (!messageTracker[key]) messageTracker[key] = [];
 
-  // Record timestamp
   messageTracker[key].push(now);
-
-  // Keep only timestamps within the time limit
   messageTracker[key] = messageTracker[key].filter(ts => now - ts <= timeLimit);
 
-  // Check if user exceeded spam limit
   if (messageTracker[key].length > maxMessages) {
     const lastWarned = warnedUsers[key] || 0;
 
@@ -42,6 +38,8 @@ export async function before(m, { conn }) {
         },
       }, { quoted: m });
 
-    messageTracker[key] = []; // Optional: reset messages after warning
+      warnedUsers[key] = now; // ✅ Add this to start cooldown timer
+      messageTracker[key] = []; // Optional reset after warning
+    }
   }
 }
