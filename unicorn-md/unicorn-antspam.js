@@ -1,3 +1,4 @@
+// ☠️ DON'T COPY PASTE SILVA TECH INC CODE. OUR CODES ARE FOR TESTING 
 // 🌟 Unicorn MD Anti-Spam Plugin (Clean + Fixed)
 const messageTracker = {};
 const warnedUsers = {}; // Track users who were already warned
@@ -27,9 +28,19 @@ export async function before(m, { conn }) {
     const lastWarned = warnedUsers[key] || 0;
 
     if (now - lastWarned > cooldown) {
-      await conn.reply(chatId, `🚨 *Stop Spamming!*\nYou've sent more than ${maxMessages} messages in 45 seconds.\nPlease slow down, or the unicorn might mute you. 🦄`, m);
-      warnedUsers[key] = now;
-    }
+      await conn.sendMessage(chatId, {
+        text: `🚨 *Stop Spamming!*\n@${senderId.split('@')[0]}, you've sent more than ${maxMessages} messages in under 45 seconds.\nPlease slow down or face Unicorn consequences. 🦄`,
+        contextInfo: {
+          mentionedJid: [senderId],
+          forwardingScore: 999,
+          isForwarded: true,
+          forwardedNewsletterMessageInfo: {
+            newsletterJid: '120363200367779016@newsletter',
+            newsletterName: 'Unicorn MD • Spam Detector',
+            serverMessageId: 143,
+          },
+        },
+      }, { quoted: m });
 
     messageTracker[key] = []; // Optional: reset messages after warning
   }
