@@ -326,6 +326,7 @@ if (!opts['test']) {
 
 if (opts['server']) (await import('./server.js')).default(global.conn, PORT)
 
+/*
 function runCleanup() {
   clearTmp()
     .then(() => {
@@ -339,6 +340,7 @@ function runCleanup() {
       setTimeout(runCleanup, 1000 * 60 * 2)
     })
 }
+*/
 
 runCleanup()
 
