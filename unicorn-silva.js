@@ -340,11 +340,11 @@ function runCleanup() {
       setTimeout(runCleanup, 1000 * 60 * 2)
     })
 }
-*/
 
 runCleanup()
 
-function clearsession() {
+*/
+/*function clearsession() {
   let prekey = []
   const directorio = readdirSync('./session')
   const filesFolderPreKeys = directorio.filter(file => {
@@ -354,7 +354,7 @@ function clearsession() {
   filesFolderPreKeys.forEach(files => {
     unlinkSync(`./session/${files}`)
   })
-}
+}*/
 
 async function connectionUpdate(update) {
   const { connection, lastDisconnect, isNewLogin, qr } = update
@@ -577,7 +577,7 @@ async function _quickTest() {
 
 async function saafsafai() {
   if (stopped === 'close' || !conn || !conn.user) return
-  clearsession()
+  /*clearsession()*/
   console.log(chalk.cyanBright('\nUnicorn 🦄 Stored Sessions Cleared'))
 }
 
